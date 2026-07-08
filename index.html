@@ -149,43 +149,83 @@
     margin-top:64px;
     background:var(--card);
     border-radius:20px;
-    padding:28px;
-    display:flex;
-    align-items:center;
-    gap:24px;
+    padding:20px;
     max-width:640px;
     border:1px solid rgba(255,210,63,0.15);
+    overflow:hidden;
   }
-  .fake-qr{
-    width:88px;height:88px;
-    background:#fff;
-    border-radius:10px;
+  .slider{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    border-radius:12px;
+    overflow:hidden;
+    background:var(--bg-soft);
+  }
+  .slider-track{
+    display:flex;
+    width:400%;
+    height:100%;
+    transition:transform .6s ease;
+  }
+  .slide{
+    width:25%;
+    height:100%;
     position:relative;
     flex-shrink:0;
   }
-  .fake-qr::before,.fake-qr::after{
-    content:"";
-    position:absolute;
-    width:22px;height:22px;
-    border:5px solid var(--bg);
-    border-radius:4px;
+  .slide-img{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg-soft);
   }
-  .fake-qr::before{top:8px;left:8px;}
-  .fake-qr::after{top:8px;right:8px;}
-  .fake-qr .bl{
+  .slide-img.ph-scan{background:linear-gradient(135deg, var(--bg-soft), #3a2470);}
+  .slide-img.ph-review{background:linear-gradient(135deg, var(--bg-soft), #4a2f8a);}
+  .slide-img.ph-kirim{background:linear-gradient(135deg, var(--bg-soft), #2f2a70);}
+  .slide-img.ph-maps{background:linear-gradient(135deg, var(--bg-soft), #35306e);}
+  .slide-img .qr-marker{width:40px;height:40px;border-width:4px;color:var(--yellow);}
+  .slide-img .stars{font-size:1.8rem;letter-spacing:4px;}
+  .slide-label{
     position:absolute;
-    bottom:8px;left:8px;
-    width:22px;height:22px;
-    border:5px solid var(--bg);
-    border-radius:4px;
-  }
-  .scan-arrow{color:var(--yellow);font-size:1.8rem;}
-  .scan-result{
+    left:16px;
+    bottom:14px;
     font-family:'JetBrains Mono',monospace;
-    font-size:0.85rem;
-    color:var(--ink-dim);
+    font-size:0.78rem;
+    color:var(--ink);
+    background:rgba(27,16,53,0.65);
+    padding:4px 10px;
+    border-radius:6px;
+    letter-spacing:0.03em;
   }
-  .scan-result strong{color:var(--yellow);display:block;font-size:1rem;margin-bottom:4px;}
+  .slider-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+  }
+  .slider-dots .dot{
+    width:8px;height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.2);
+    cursor:pointer;
+    border:none;
+    padding:0;
+  }
+  .slider-dots .dot.active{background:var(--yellow);}
+
+  /* TRUST */
+  .trust-line{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.15rem;
+    line-height:1.5;
+    max-width:760px;
+    color:var(--ink);
+    border-left:3px solid var(--yellow);
+    padding-left:24px;
+  }
 
   /* STEPS */
   .section{padding:96px 0;}
@@ -235,6 +275,115 @@
   .benefit .qr-marker{color:var(--yellow);margin-bottom:16px;}
   .benefit h3{font-size:1.05rem;margin-bottom:8px;}
   .benefit p{color:var(--ink-dim);font-size:0.88rem;line-height:1.5;margin:0;}
+
+  /* WHY GRID */
+  .why-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    align-items:start;
+  }
+  .why-card{
+    background:var(--bg-soft);
+    border-radius:16px;
+    padding:32px 28px;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .why-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+  }
+
+  /* accordion */
+  .accordion-trigger{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    background:none;
+    border:none;
+    color:var(--ink);
+    padding:0;
+    cursor:pointer;
+    text-align:left;
+    font-size:1.15rem;
+  }
+  .accordion-trigger .qr-marker{color:var(--yellow);}
+  .acc-icon{
+    margin-left:auto;
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.4rem;
+    color:var(--yellow);
+    transition:transform .2s ease;
+  }
+  .accordion[data-open="true"] .acc-icon{transform:rotate(45deg);}
+  .why-teaser{
+    color:var(--ink-dim);
+    font-size:0.92rem;
+    margin:14px 0 0;
+    line-height:1.5;
+  }
+  .accordion-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .accordion-panel p{
+    color:var(--ink-dim);
+    font-size:0.9rem;
+    line-height:1.65;
+    margin:18px 0 0;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+
+  /* print showcase */
+  .print-gallery{
+    display:flex;
+    gap:16px;
+    margin-bottom:24px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+  }
+  .print-gallery::-webkit-scrollbar{display:none;}
+  .print-item{
+    flex:0 0 calc(33.333% - 11px);
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .print-mock{
+    width:100%;
+    aspect-ratio:3/4;
+    background:var(--card);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,210,63,0.15);
+  }
+  .print-mock.standee{background:linear-gradient(180deg, var(--card) 60%, var(--coral) 60%);}
+  .print-mock.card{aspect-ratio:16/10;}
+  .print-mock .qr-marker{width:26px;height:26px;border-width:3px;color:var(--yellow);}
+  .print-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .why-card.showcase p{
+    color:var(--ink-dim);
+    font-size:0.92rem;
+    line-height:1.6;
+    margin:10px 0 0;
+  }
 
   /* CTA BAND */
   .cta-band{
@@ -290,11 +439,11 @@
 
   @media (max-width: 860px){
     .steps{grid-template-columns:1fr;}
-    .benefits{grid-template-columns:repeat(2,1fr);}
-    .scan-card{flex-direction:column;text-align:center;}
+    .why-grid{grid-template-columns:1fr;}
   }
   @media (max-width: 520px){
-    .benefits{grid-template-columns:1fr;}
+    .print-gallery{gap:10px;}
+    .print-item{flex-basis:70%;}
     .hero{padding:56px 0 64px;}
     .cta-band{padding:48px 24px;}
   }
@@ -323,24 +472,27 @@
     <div class="eyebrow"><span class="qr-marker"></span><span class="mono">Scan &middot; Tap &middot; Review</span></div>
     <h1 class="headline">Ubah setiap pelanggan jadi <span class="accent">review bintang 5</span> di Google.</h1>
     <p class="sub">QReview memberi bisnis Anda satu QR code yang langsung membawa pelanggan ke halaman review Google — tanpa aplikasi, tanpa ribet, tinggal scan dan ketuk.</p>
-    <div class="hero-actions">
-      <a href="#cta" class="btn-primary"><span class="qr-marker"></span>Pesan Sekarang</a>
-      <span class="hero-note">Aktif dalam hitungan menit setelah dipesan</span>
-    </div>
-
     <div class="scan-card">
-      <div class="fake-qr"><span class="bl"></span></div>
-      <div class="scan-arrow">&rarr;</div>
-      <div class="scan-result">
-        <strong>google.com/review/bisnis-anda</strong>
-        <span class="stars">★★★★★</span><br>
-        Pelanggan scan, kasih bintang, selesai.
+      <div class="slider" data-slider>
+        <div class="slider-track">
+          <div class="slide"><div class="slide-img ph-scan"><span class="qr-marker"></span></div><span class="slide-label">01 &middot; Scan</span></div>
+          <div class="slide"><div class="slide-img ph-review"><span class="stars">★★★★★</span></div><span class="slide-label">02 &middot; Review</span></div>
+          <div class="slide"><div class="slide-img ph-kirim"><span class="qr-marker"></span></div><span class="slide-label">03 &middot; Kirim</span></div>
+          <div class="slide"><div class="slide-img ph-maps"><span class="qr-marker"></span></div><span class="slide-label">04 &middot; Tercantum di Maps</span></div>
+        </div>
       </div>
+      <div class="slider-dots" data-dots></div>
     </div>
   </div>
 </header>
 
-<section class="section">
+<section class="section trust-section">
+  <div class="wrap">
+    <p class="trust-line">Bisnis dengan review Google yang banyak dan aktif lebih mudah ditemukan dan lebih dipercaya calon pelanggan sebelum mereka datang atau membeli.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
   <div class="wrap">
     <div class="section-head">
       <span class="mono">01 — Alur</span>
@@ -370,29 +522,32 @@
   <div class="wrap">
     <div class="section-head">
       <span class="mono">02 — Kenapa QReview</span>
-      <h2>Dibuat untuk semua jenis bisnis.</h2>
+      <h2>Dibangun supaya awet, bukan cuma cantik.</h2>
     </div>
-    <div class="benefits">
-      <div class="benefit">
-        <span class="qr-marker"></span>
-        <h3>Setup sekali pasang</h3>
-        <p>Satu QR code, aktif selamanya. Tidak perlu ganti-ganti tiap bulan.</p>
+    <div class="why-grid">
+
+      <div class="why-card accordion">
+        <button class="accordion-trigger" aria-expanded="false">
+          <span class="qr-marker"></span>
+          <span class="why-title">QR Code Dinamis</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <p class="why-teaser">QR code Anda tidak akan pernah mati walau Google ubah cara review-nya.</p>
+        <div class="accordion-panel">
+          <p>Setiap QR code QReview terhubung ke sistem backend kami, bukan link statis biasa. Jadi kalau Google mengubah struktur atau mekanisme halaman review suatu saat nanti, kami yang menyesuaikan kodenya di belakang layar — QR code fisik yang sudah tercetak dan tersebar di toko Anda tetap berfungsi normal, tidak perlu cetak ulang atau ganti stiker.</p>
+        </div>
       </div>
-      <div class="benefit">
-        <span class="qr-marker"></span>
-        <h3>Tanpa aplikasi tambahan</h3>
-        <p>Pelanggan tidak perlu install apa pun — langsung lewat browser HP mereka.</p>
+
+      <div class="why-card showcase">
+        <div class="print-gallery">
+          <div class="print-item"><div class="print-mock sticker"><span class="qr-marker"></span></div><span class="print-label">Stiker Meja</span></div>
+          <div class="print-item"><div class="print-mock standee"><span class="qr-marker"></span></div><span class="print-label">Standee</span></div>
+          <div class="print-item"><div class="print-mock card"><span class="qr-marker"></span></div><span class="print-label">Kartu Nama</span></div>
+        </div>
+        <h3 class="why-title">Varian Cetak &amp; Custom Desain</h3>
+        <p>Pilih bentuk fisik yang paling pas untuk bisnis Anda — stiker meja, standee kasir, sampai kartu nama. Desain bisa disesuaikan dengan warna dan gaya brand Anda sendiri.</p>
       </div>
-      <div class="benefit">
-        <span class="qr-marker"></span>
-        <h3>Cocok untuk semua bisnis</h3>
-        <p>Restoran, toko, klinik, salon, sampai jasa — semua bisa pakai QReview.</p>
-      </div>
-      <div class="benefit">
-        <span class="qr-marker"></span>
-        <h3>Kelola dari HP</h3>
-        <p>Ubah tujuan link review kapan saja lewat dashboard sederhana, tanpa perlu teknis.</p>
-      </div>
+
     </div>
   </div>
 </section>
@@ -414,5 +569,58 @@
   </footer>
 </div>
 
+<script>
+  document.querySelectorAll('.accordion-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var acc = btn.closest('.accordion');
+      var panel = acc.querySelector('.accordion-panel');
+      var isOpen = acc.getAttribute('data-open') === 'true';
+      if(isOpen){
+        panel.style.maxHeight = null;
+        acc.setAttribute('data-open','false');
+        btn.setAttribute('aria-expanded','false');
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        acc.setAttribute('data-open','true');
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  // Looping image slider (scan card)
+  (function(){
+    var slider = document.querySelector('[data-slider]');
+    if(!slider) return;
+    var track = slider.querySelector('.slider-track');
+    var slides = slider.querySelectorAll('.slide');
+    var dotsWrap = document.querySelector('[data-dots]');
+    var count = slides.length;
+    var index = 0;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for(var i=0;i<count;i++){
+      var dot = document.createElement('button');
+      dot.className = 'dot' + (i===0 ? ' active':'');
+      dot.setAttribute('aria-label', 'Slide ' + (i+1));
+      (function(idx){
+        dot.addEventListener('click', function(){ goTo(idx); });
+      })(i);
+      dotsWrap.appendChild(dot);
+    }
+    var dots = dotsWrap.querySelectorAll('.dot');
+
+    function goTo(i){
+      index = i;
+      track.style.transform = 'translateX(-' + (index * (100/count)) + '%)';
+      dots.forEach(function(d,di){ d.classList.toggle('active', di===index); });
+    }
+
+    if(!reduceMotion){
+      setInterval(function(){
+        goTo((index + 1) % count);
+      }, 3000);
+    }
+  })();
+</script>
 </body>
 </html>

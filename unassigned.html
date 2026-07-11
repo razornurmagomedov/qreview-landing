@@ -91,38 +91,45 @@
 
   /* UNASSIGNED NOTICE */
   .notice-band{
-    padding:20px 0 0;
+    min-height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:48px 0 24px;
+    position:relative;
   }
   .notice-box{
     background:var(--card);
     border:1px solid rgba(255,210,63,0.3);
-    border-radius:16px;
-    padding:20px 24px;
+    border-radius:20px;
+    padding:40px 36px;
     display:flex;
-    align-items:center;
-    gap:16px;
-    flex-wrap:wrap;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
   }
   .notice-box .qr-marker{
+    width:32px;height:32px;
+    border-width:4px;
     color:var(--yellow);
     flex-shrink:0;
   }
   .notice-box p{
-    color:var(--ink-dim);
-    font-size:0.92rem;
+    color:var(--ink);
+    font-size:clamp(1.3rem, 3.2vw, 1.8rem);
     line-height:1.5;
     margin:0;
-    flex:1;
-    min-width:220px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:500;
   }
-  .notice-box p strong{color:var(--ink);}
+  .notice-box p strong{color:var(--yellow);}
   .notice-cta{
     background:var(--coral);
     color:var(--ink);
-    padding:10px 20px;
-    border-radius:8px;
+    padding:14px 28px;
+    border-radius:10px;
     font-weight:700;
-    font-size:0.88rem;
+    font-size:1rem;
     border:none;
     cursor:pointer;
     font-family:'Inter',sans-serif;
@@ -130,6 +137,27 @@
     transition:transform .15s ease;
   }
   .notice-cta:hover{transform:translateY(-2px);}
+  .scroll-hint{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    margin-top:32px;
+    color:var(--ink-dim);
+  }
+  .scroll-hint .mono{font-size:0.68rem;}
+  .scroll-arrow{
+    font-size:1.1rem;
+    color:var(--yellow);
+    animation:bounce 1.6s ease-in-out infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(6px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .scroll-arrow{animation:none;}
+  }
 
   /* HERO */
   .hero{
@@ -588,7 +616,6 @@
 <div class="wrap">
   <nav>
     <div class="logo"><span class="qr-marker"></span> QReview</div>
-    <button class="nav-cta js-order-trigger">Pesan Sekarang</button>
   </nav>
 </div>
 
@@ -596,9 +623,13 @@
   <div class="wrap">
     <div class="notice-box">
       <span class="qr-marker"></span>
-      <p><strong>Tunggu, QR code ini belum terdaftar di layanan kami.</strong> Kenalan dulu yuk — kami QReview, penyedia layanan Quick Review Google. Pesan sekarang untuk aktifkan QR code bisnis Anda.</p>
+      <p><strong>Eitss, QR code ini belum terdaftar di layanan kami.</strong> Kenalan dulu yuk — kami QReview, penyedia layanan Quick Review Google. Pesan sekarang untuk aktifkan QR code bisnis Anda.</p>
       <button class="notice-cta js-order-trigger">Pesan Sekarang</button>
     </div>
+  </div>
+  <div class="scroll-hint">
+    <span class="mono">Scroll untuk kenalan lebih jauh</span>
+    <span class="scroll-arrow">&darr;</span>
   </div>
 </section>
 
@@ -642,7 +673,7 @@
           <span class="acc-icon">+</span>
         </button>
         <p class="why-teaser">QR code Anda tidak akan pernah mati walau Google ubah cara review-nya.</p>
-        <span class="why-hint">Klik untuk lihat detail</span>
+        <span class="why-hint">Klik (+) untuk lihat detail</span>
         <div class="accordion-panel">
           <p>Setiap QR code QReview terhubung ke sistem backend kami, bukan link statis biasa. Jadi kalau Google mengubah struktur atau mekanisme halaman review suatu saat nanti, kami yang menyesuaikan kodenya di belakang layar — QR code fisik yang sudah tercetak dan tersebar di toko Anda tetap berfungsi normal, tidak perlu cetak ulang atau ganti stiker.</p>
         </div>
@@ -655,13 +686,13 @@
           <span class="acc-icon">+</span>
         </button>
         <div class="print-gallery">
-          <div class="print-item"><div class="print-mock sticker"><span class="qr-marker"></span></div><span class="print-label">Akrilik Print UV</span></div>
-          <div class="print-item"><div class="print-mock sticker"><span class="qr-marker"></span></div><span class="print-label">Akrilik Transparan</span></div>
-          <div class="print-item"><div class="print-mock sticker"><span class="qr-marker"></span></div><span class="print-label">Sticker Vynil</span></div>
-          <div class="print-item"><div class="print-mock sticker"><span class="qr-marker"></span></div><span class="print-label">Akrilik Gantung</span></div>
+         <div class="print-item"><div class="print-mock sticker"><img src="UVPrint.webp" alt="Akrilik Print UV" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></div><span class="print-label">Akrilik Print UV</span></div>
+          <div class="print-item"><div class="print-mock sticker"><img src="acrilicartwork.webp" alt="Akrilik Transparan" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></div><span class="print-label">Akrilik Transparan</span></div>
+          <div class="print-item"><div class="print-mock sticker"><img src="vynil.webp" alt="Sticker Vynil" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></div><span class="print-label">Sticker Vynil</span></div>
+          <div class="print-item"><div class="print-mock sticker"><img src="wallacrilic.webp" alt="Akrilik Dinding" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></div><span class="print-label">Akrilik Dinding</span></div>
         </div>
         <p class="why-teaser">Pilih bentuk fisik yang paling pas untuk bisnis Anda.</p>
-        <span class="why-hint">Klik untuk lihat detail</span>
+        <span class="why-hint">Klik (+) untuk lihat detail</span>
         <div class="accordion-panel">
           <p>Semua varian bisa dicustom mengikuti warna dan gaya brand Anda — mulai dari pemilihan bahan, ukuran, sampai tata letak logo. Tim kami akan bantu siapkan desain sebelum dicetak, jadi hasil akhirnya benar-benar sesuai identitas bisnis Anda.</p>
         </div>
